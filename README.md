@@ -1,27 +1,31 @@
 # CaféHaine's Arch Installer
 
 Image USB (2?4)Go
-Boot FAT32 100M avec Grub EFI + bios label CafeBoot
-Root RO overlayfs strict minimum niveau paquets 
-(git pacstrap networkmanager gparted(installer tout les paquets de format) (firefox|lxqt|netsurf))
 
-GUI GTK/Chopsui ? javascript/html avec un serveur python ?
-DE: rootston ou lxde
+Boot FAT32 100M avec Grub EFI + bios label CafeBoot
+
+Root RO overlayfs (pour installer des drivers wifi) strict minimum niveau paquets
+- pacstrap
+- networkmanager
+- gparted (installer tout les paquets de format)
+- browser? (firefox/cupzilla/netsurf)
+- DE (rootston/lxde/xfce)
 
 # Mode terminal / dialog
 
-[ ] Choix layout clavier
-[x] Choix locale
-[ ] si pas de connexion internet, detecter carte wifi
-  [ ] si carte wifi afficher nmtui
-  [ ] sinon afficher un warning qui dit de setup à la main et d'executer une
-      commande pour continuer (network_ok ?)
-[ ] optimisation mirrorlist
+- [X] Choix layout clavier
+- [x] Choix locale
 
 # Démarrage bureau
 
 - RAPPELLER QUE JE SUIS PAS RESPONSABLE, ET QUE C'EST PAS UN ARCHLINUX, C'EST
     JUSTE UN MOYEN D'ACCELERER L'INSTALLATION QUAND VOUS EN AVEZ DEJA FAIT
+
+- [ ] si pas de connexion internet, detecter carte wifi
+  - [ ] si carte wifi afficher nmtui
+  - [ ] sinon afficher un warning qui dit de setup à la main et d'executer une
+      commande pour continuer (network_ok ?)
+- [ ] optimisation mirrorlist
 
 - Gparted - afficher une page de conseils
 - Choix partitions
