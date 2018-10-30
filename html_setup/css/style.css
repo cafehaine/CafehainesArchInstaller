@@ -1,0 +1,76 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+label {
+	user-select: none;
+}
+
+/***************/
+/* Page layout */
+/***************/
+
+body {
+	display: grid;
+	grid-template-columns: minmax(80px,1fr) 4fr;
+	grid-template-rows: 100px 1fr 30px;
+	width: 100%;
+	height: 100vh;
+}
+
+body>* {
+	width: 100%;
+	height: 100%;
+}
+
+header {
+	grid-column: 1/3;
+	grid-row: 1/2;
+}
+
+iframe {
+	grid-column: 1/2;
+	grid-row: 2/4;
+}
+
+main {
+	grid-column: 2/3;
+	grid-row: 2/3;
+	padding: 5px 10px;
+}
+
+main p, main h1, main h2, main h3 {
+	margin-bottom: 10px;
+	max-width: 80ch;
+	text-align: justify;
+}
+
+footer {
+	grid-column: 2/3;
+	grid-row: 3/4;
+	text-align: right;
+	line-height: 30px;
+}
+
+footer button {
+	padding: 3px 8px;
+	margin-right: 10px;
+}
+
+/**************************/
+/* Colors and backgrounds */
+/**************************/
+
+body {
+	color: #bbb;
+	background:#222;
+	font-family: cantarell;
+	font-size: 1.2em;
+}
+
+a {
+	color: #F00;
+	font-weight: 700;
+}
