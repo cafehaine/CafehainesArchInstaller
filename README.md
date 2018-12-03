@@ -26,15 +26,12 @@ that my non-free laptops have.
 The package list installed on the image is the following:
 
 - base (nano, fdisk, cfdisk, …)
-- base-devel
 - grub (32bit and 64bit EFI support)
-- networkmanager (network is hard)
-- bash-completion ('cause pressing tab is fun, and who needs ZSH?)
-- vim (my favorite text editor)
 - arch-install-scripts (duh)
 - gparted (fully feature graphical partition editor)
   - all the packages required to support all partition formats
-- lxde (lightweight DE)
+- fluxbox (lightweight DE)
+- xterm (basic terminal emulator)
 - netsurf (lightweight web browser)
 
 (this list is subject to changes at any time)
