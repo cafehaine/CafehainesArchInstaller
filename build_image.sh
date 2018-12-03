@@ -1,7 +1,12 @@
 #!/usr/bin/bash
 
+if [ "$UID" -ne 0 ]; then
+	echo "You should run this script as root."
+	exit 1
+fi
+
 PACKAGES=("base" "grub" "arch-install-scripts" "gparted" "fluxbox" "xterm"
-	"netsurf")
+	"xorg-server" "xorg-xinit")
 SERVICES=()
 
 #Generate build directory
@@ -34,14 +39,15 @@ pacstrap -c -G -M /mnt ${PACKAGES[@]}
 #TODO
 
 #Copy scripts and configs
-echo "cai" > /mnt/etc/hostname
-echo "LABEL=Root_CAI / ext4 rw,relatime 0 1" > /mnt/etc/fstab
-#TODO add grub config file to use label instead of UUID
+cp -R ../skeleton/* /mnt/
+
+#Rebuild initramfs with new preset
+rm /mnt/boot/*.img
+arch-chroot /mnt /bin/bash -c "mkinitcpio -p linux"
 
 #Configure grub
 arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot --removable"
 arch-chroot /mnt /bin/bash -c "grub-install --target=i386-efi --efi-directory=/boot --removable"
-arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
 
 #Unmount partitions
 sync
@@ -49,3 +55,6 @@ umount -R /mnt
 
 #Unmount loop device
 losetup -d /dev/loop0
+
+#VBoxManage convertfromraw --format VDI image.img image.vdi
+#VBoxManage internalcommands sethduuid image.vdi 09a9d176-321c-451d-b075-394cd0160da9
