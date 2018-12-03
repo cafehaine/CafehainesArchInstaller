@@ -1,44 +1,40 @@
 # CaféHaine's Arch Installer
 
-Image USB (2?4)Go
+CaféHaine's Arch Installer is an installer for arch mainly built for my own use,
+but feel free to patch it and use it however you want (as long as you respect
+the licence).
 
-Boot FAT32 100M avec Grub EFI + bios label CafeBoot
+My goal is to have suggestions based on the packages that I use, but allow to
+modify the package list before installing, so you have the freedom to choose
+whatever you want.
 
-Root RO overlayfs (pour installer des drivers wifi) strict minimum niveau paquets
-- pacstrap
-- networkmanager
-- gparted (installer tout les paquets de format)
-- browser? (firefox/cupzilla/netsurf)
-- DE (rootston/lxde/xfce)
+# Disclaimer
 
-# Mode terminal / dialog
+I am not responsible to any damages caused to your computer by this image and or
+installer. Please read the licence.
 
-- [X] Choix layout clavier
-- [x] Choix locale
+# How it works
 
-# Démarrage bureau
+The generated image will be a minimal arch install, with the installer script,
+and a de to run gparted.
 
-- RAPPELLER QUE JE SUIS PAS RESPONSABLE, ET QUE C'EST PAS UN ARCHLINUX, C'EST
-    JUSTE UN MOYEN D'ACCELERER L'INSTALLATION QUAND VOUS EN AVEZ DEJA FAIT
+My goal is to have this image running on all my PCs without tweaking the kernel
+arguments. This means only EFI, for x86\_64 CPUs, but support for 32b and 64b
+EFI firmwares, but also support for laptops with iGPU and dGPU, and weird stuff
+that my non-free laptops have.
 
-- [ ] si pas de connexion internet, detecter carte wifi
-  - [ ] si carte wifi afficher nmtui
-  - [ ] sinon afficher un warning qui dit de setup à la main et d'executer une
-      commande pour continuer (network_ok ?)
-- [ ] optimisation mirrorlist
+The package list installed on the image is the following:
 
-- Gparted - afficher une page de conseils
-- Choix partitions
-- Choix DE, services, paquets (afficher une aide et des screenshots)
-  - choix automatique ucode (amd/intel)
-  - choix automatique du bootloader (syslinux pour bios, systemd-boot pour EFI,
-      grub pour EFI32 CPU64)
-  - etape de validation à la fin avec possibilité d'éditer à la main
-- Si nvidia, afficher un warning que les drivers opensource vont être installés,
-    et qu'il faut check le wiki pour voir comment le changer
-- Installation (background)
-- Choisir un utilisateur/mot de passe
-- Choix fuseau horaire
-- Choix hostname (defaut arch_$user)
-- ???
-- Profit
+- base (nano, fdisk, cfdisk, …)
+- base-devel
+- grub (32bit and 64bit EFI support)
+- networkmanager (network is hard)
+- bash-completion ('cause pressing tab is fun, and who needs ZSH?)
+- vim (my favorite text editor)
+- arch-install-scripts (duh)
+- gparted (fully feature graphical partition editor)
+  - all the packages required to support all partition formats
+- lxde (lightweight DE)
+- netsurf (lightweight web browser)
+
+(this list is subject to changes at any time)
