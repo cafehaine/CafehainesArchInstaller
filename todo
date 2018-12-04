@@ -1,4 +1,0 @@
-Application install server (in python ?)
-which when started installs at least base/base-devel
-and then waits fot the setup script to select other packages which will be
-installed via arch-chroot
