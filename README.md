@@ -26,12 +26,14 @@ that my non-free laptops have.
 The package list installed on the image is the following:
 
 - base (nano, fdisk, cfdisk, …)
+- base-devel (to compile some stuff)
 - grub (32bit and 64bit EFI support)
 - arch-install-scripts (duh)
-- gparted (fully feature graphical partition editor)
-  - all the packages required to support all partition formats
 - fluxbox (lightweight DE)
 - xterm (basic terminal emulator)
-- netsurf (lightweight web browser)
+- xorg-server / xorg-xinit (to display a Xorg session)
+- luarocks (to install some dependencies for the wizard)
+- fltk (toolkit used by the wizard)
+- ttf-dejavu ('cause fluxbox needs a font)
 
 (this list is subject to changes at any time)

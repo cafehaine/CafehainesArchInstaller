@@ -5,8 +5,9 @@ if [ "$UID" -ne 0 ]; then
 	exit 1
 fi
 
-PACKAGES=("base" "grub" "arch-install-scripts" "gparted" "fluxbox" "xterm"
-	"xorg-server" "xorg-xinit")
+PACKAGES=("base" "base-devel" "grub" "arch-install-scripts" "fluxbox" "xterm"
+	"xorg-server" "xorg-xinit" "luarocks" "fltk" "ttf-dejavu")
+
 SERVICES=()
 
 #Generate build directory
@@ -26,6 +27,7 @@ sudo losetup -P /dev/loop0 ./image.img
 mkfs.fat -F32 /dev/loop0p1
 mlabel /dev/loop0p1:"Boot_CAI"
 mkfs.ext4 -L "Root_CAI" /dev/loop0p2
+#TODO squashfs ?
 
 #Mount partitions to /mnt
 mount /dev/loop0p2 /mnt
@@ -35,11 +37,16 @@ mount /dev/loop0p1 /mnt/boot
 #pacstrap packages
 pacstrap -c -G -M /mnt ${PACKAGES[@]}
 
+#install luarocks deps
+arch-chroot /mnt /bin/bash -c "luarocks install fltk4lua"
+
 #Enable services
 #TODO
 
 #Copy scripts and configs
 cp -R ../skeleton/* /mnt/
+cp -R ../scripts/* /mnt/usr/
+#TODO sed mirrorlist to uncomment servers
 
 #Rebuild initramfs with new preset
 rm /mnt/boot/*.img
@@ -48,6 +55,7 @@ arch-chroot /mnt /bin/bash -c "mkinitcpio -p linux"
 #Configure grub
 arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot --removable"
 arch-chroot /mnt /bin/bash -c "grub-install --target=i386-efi --efi-directory=/boot --removable"
+#TODO only install required modules
 
 #Unmount partitions
 sync
