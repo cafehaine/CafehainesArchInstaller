@@ -25,7 +25,7 @@ sudo losetup -P /dev/loop0 ./image.img
 
 #Partition creation
 mkfs.fat -F32 /dev/loop0p1
-mlabel /dev/loop0p1:"Boot_CAI"
+mlabel -i /dev/loop0p1 ::BOOT_CAI
 mkfs.ext4 -L "Root_CAI" /dev/loop0p2
 #TODO squashfs ?
 
@@ -41,21 +41,25 @@ pacstrap -c -G -M /mnt ${PACKAGES[@]}
 arch-chroot /mnt /bin/bash -c "luarocks install fltk4lua"
 
 #Enable services
-#TODO
+#TODO none at the moment
 
 #Copy scripts and configs
 cp -R ../skeleton/* /mnt/
 cp -R ../scripts/* /mnt/usr/
-#TODO sed mirrorlist to uncomment servers
+
+#Uncomment mirrors in mirrorlist
+mv /mnt/etc/pacman.d/mirrorlist{,.old}
+sed "s/^#//" /mnt/etc/pacman.d/mirrorlist.old > /mnt/etc/pacman.d/mirrorlist
+rm /mnt/etc/pacman.d/mirrorlist.old
 
 #Rebuild initramfs with new preset
 rm /mnt/boot/*.img
 arch-chroot /mnt /bin/bash -c "mkinitcpio -p linux"
 
 #Configure grub
-arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot --removable"
-arch-chroot /mnt /bin/bash -c "grub-install --target=i386-efi --efi-directory=/boot --removable"
-#TODO only install required modules
+MODULES="normal linux configfile test all_video efi_gop efi_uga video_bochs video_cirrus part_gpt gzio fat"
+arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --install-modules='$MODULES' --efi-directory=/boot --removable"
+arch-chroot /mnt /bin/bash -c "grub-install --target=i386-efi --install-modules='$MODULES' --efi-directory=/boot --removable"
 
 #Unmount partitions
 sync
@@ -64,5 +68,5 @@ umount -R /mnt
 #Unmount loop device
 losetup -d /dev/loop0
 
-#VBoxManage convertfromraw --format VDI image.img image.vdi
-#VBoxManage internalcommands sethduuid image.vdi 09a9d176-321c-451d-b075-394cd0160da9
+VBoxManage convertfromraw --format VDI image.img image.vdi
+VBoxManage internalcommands sethduuid image.vdi 09a9d176-321c-451d-b075-394cd0160da9
