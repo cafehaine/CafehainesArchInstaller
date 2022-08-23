@@ -1,3 +1,7 @@
+# Unmaintained project!
+
+I might take another stab at this, but at the moment I no longer plan on developing this.
+
 # CaféHaine's Arch Installer
 
 CaféHaine's Arch Installer is an installer for arch mainly built for my own use,
